@@ -1,5 +1,6 @@
 {
   "version": 8,
+  "id": "osm-liberty",
   "name": "OSM Liberty",
   "metadata": {
     "maputnik:license": "https://github.com/maputnik/osm-liberty/blob/gh-pages/LICENSE.md",
@@ -7,21 +8,11 @@
     "openmaptiles:version": "3.x"
   },
   "sources": {
-    "openmaptiles": {
-      "type": "vector",
-      "url": "https://api.maptiler.com/tiles/v3/tiles.json?key={key}"
-    },
-    "natural_earth_shaded_relief": {
-      "maxzoom": 6,
-      "tileSize": 256,
-      "tiles": [
-        "https://klokantech.github.io/naturalearthtiles/tiles/natural_earth_2_shaded_relief.raster/{z}/{x}/{y}.png"
-      ],
-      "type": "raster"
-    }
+    "openmaptiles": {"type": "vector", "url": "mbtiles://{v3}", "maxzoom": 14},
+    "natural_earth_shaded_relief": {"type": "raster", "url": "mbtiles://{naturalearth}", "maxzoom": 6, "tileSize": 128}
   },
-  "sprite": "https://maputnik.github.io/osm-liberty/sprites/osm-liberty",
-  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key={key}",
+  "sprite": "{styleJsonFolder}/sprites/osm-liberty",
+  "glyphs": "{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",
@@ -33,7 +24,7 @@
       "type": "raster",
       "source": "natural_earth_shaded_relief",
       "maxzoom": 6,
-      "paint": {"raster-opacity": {"base": 1.5, "stops": [[0, 0.6], [6, 0.1]]}}
+      "paint": {"raster-opacity": {"base": 1.5, "stops": [[3, 1], [7, 0]]} }
     },
     {
       "id": "park",
@@ -177,7 +168,10 @@
       "source": "openmaptiles",
       "source-layer": "water",
       "filter": ["all", ["!=", "brunnel", "tunnel"]],
-      "paint": {"fill-color": "rgb(158,189,255)"}
+      "paint": {
+        "fill-color": "rgb(158,189,255)",
+        "fill-opacity": {"base": 0, "stops": [[5, 0.6], [6, 0.8], [7, 1]]}
+     }
     },
     {
       "id": "landcover_sand",
@@ -1258,23 +1252,50 @@
       }
     },
     {
-      "id": "building-3d",
-      "type": "fill-extrusion",
+      "id": "power_line",
+      "type": "line",
       "source": "openmaptiles",
-      "source-layer": "building",
-      "minzoom": 14,
+      "source-layer": "power",
+      "filter": ["all", ["in", "class", "line", "minor_line"]],
+      "layout": {"line-cap": "round", "line-join": "round"},
       "paint": {
-        "fill-extrusion-color": "hsl(35, 8%, 85%)",
-        "fill-extrusion-height": {
-          "property": "render_height",
-          "type": "identity"
-        },
-        "fill-extrusion-base": {
-          "property": "render_min_height",
-          "type": "identity"
-        },
-        "fill-extrusion-opacity": 0.8
-      }
+        "line-color": "rgba(251, 218, 80, 1)",
+        "line-width": {"base": 0, "stops": [[11, 0.2], [12, 0.4], [13, 0.6], [14, 0.8]]}
+     }
+    },
+    {
+      "id": "power_point",
+      "type": "symbol",
+      "source": "openmaptiles",
+      "source-layer": "power",
+      "filter": ["all", ["in", "class", "tower", "pole", "catenary_mast"]],
+      "layout": {"icon-image": "dot_9"},
+      "paint": {"icon-opacity": {"base": 0, "stops": [[11, 0.1], [13, 0.2], [14, 0.3]]} }
+    },
+    {
+      "id": "power_poi",
+      "type": "symbol",
+      "source": "openmaptiles",
+      "source-layer": "power",
+      "filter": ["all", ["in", "class", "generator", "portal", "transformer", "switch", "insulator"]],
+      "layout": {
+        "icon-image": "default_1",
+        "icon-size": 0.8,
+        "text-field": "E",
+        "text-font": ["Roboto Condensed Italic"],
+        "text-size": 12
+    },
+      "paint": {"text-color": "#ab8a00"}
+    },
+    {
+      "filter": ["==", "$type", "Point"],
+      "id": "housenumber",
+      "layout": {"text-field": "{housenumber}", "text-font": ["Open Sans Regular"], "text-size": 10},
+      "minzoom": 17,
+      "paint": {"text-color": "#959595"},
+      "source": "openmaptiles",
+      "source-layer": "housenumber",
+      "type": "symbol"
     },
     {
       "id": "boundary_3",
@@ -1690,6 +1711,5 @@
         "text-halo-width": 1
       }
     }
-  ],
-  "id": "osm-liberty"
+  ]
 }
