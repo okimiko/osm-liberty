@@ -38,7 +38,7 @@ You can [edit the style directly online in Maputnik](https://maplibre.org/maputn
 This style actually triggered the need for the development of [Maputnik](https://github.com/maplibre/maputnik).
 
 A pre-commit hook is included to validate and format the JSON styles using
-[`mapbox-gl-style-spec`](https://www.npmjs.com/package/@mapbox/mapbox-gl-style-spec).
+[`maplibre-gl-style-spec`](https://www.npmjs.com/package/@maplibre/maplibre-gl-style-spec).
 To use, just install the NPM dev dependencies:
 ```
 npm install
