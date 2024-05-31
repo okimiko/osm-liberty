@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "validate": "./node_modules/.bin/gl-style-validate style.json",
     "diff": "bash -c 'diff <(./node_modules/.bin/gl-style-format style.json) style.json'",
-    "format": "./node_modules/.bin/gl-style-format style.json | ./node_modules/.bin/sponge style.json",
+    "format": "./node_modules/.bin/gl-style-format style.json > temp_style.json && mv temp_style.json style.json",
     "build_sprites": "bash ./build_sprites.sh"
   },
   "repository": {
@@ -26,8 +26,7 @@
   "homepage": "https://github.com/maputnik/osm-liberty#readme",
   "devDependencies": {
     "@maplibre/maplibre-gl-style-spec": "^20.0.0",
-    "husky": "^8.0.3",
-    "sponge": "^0.1.0"
+    "husky": "^8.0.3"
   },
   "husky": {
     "hooks": {
