@@ -1396,7 +1396,7 @@
         "icon-image": [
           "match",
           ["get", "subclass"],
-          ["florist", "furniture"],
+          ["florist", "furniture", "soccer", "tennis"],
           ["get", "subclass"],
           ["get", "class"]
         ],
@@ -1430,7 +1430,7 @@
         "icon-image": [
           "match",
           ["get", "subclass"],
-          ["florist", "furniture"],
+          ["florist", "furniture", "soccer", "tennis"],
           ["get", "subclass"],
           ["get", "class"]
         ],
@@ -1464,7 +1464,7 @@
         "icon-image": [
           "match",
           ["get", "subclass"],
-          ["florist", "furniture"],
+          ["florist", "furniture", "soccer", "tennis"],
           ["get", "subclass"],
           ["get", "class"]
         ],
