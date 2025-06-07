@@ -9,19 +9,21 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "url": "https://api.maptiler.com/tiles/v3-openmaptiles/tiles.json?key={key}"
+      "url": "pmtiles://{v3}"
     },
     "natural_earth_shaded_relief": {
-      "maxzoom": 6,
       "tileSize": 256,
-      "tiles": [
-        "https://klokantech.github.io/naturalearthtiles/tiles/natural_earth_2_shaded_relief.raster/{z}/{x}/{y}.png"
-      ],
+      "url": "mbtiles://{ne}",
+      "type": "raster"
+    },
+    "satellite": {
+      "tileSize": 256,
+      "url": "mbtiles://{sat}",
       "type": "raster"
     }
   },
-  "sprite": "https://maputnik.github.io/osm-liberty/sprites/osm-liberty",
-  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "sprite": "{styleJsonFolder}/sprites/osm-liberty",
+  "glyphs": "{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",
@@ -34,6 +36,11 @@
       "source": "natural_earth_shaded_relief",
       "maxzoom": 6,
       "paint": {"raster-opacity": {"base": 1.5, "stops": [[0, 0.6], [6, 0.1]]}}
+    },
+    {
+      "id": "satellite",
+      "type": "raster",
+      "source": "satellite"
     },
     {
       "id": "park",
