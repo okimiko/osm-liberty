@@ -13,17 +13,30 @@
     },
     "natural_earth_shaded_relief": {
       "tileSize": 256,
-      "url": "mbtiles://{ne}",
+      "url": "mbtiles://{natural-earth}",
       "type": "raster"
     },
     "satellite": {
       "tileSize": 256,
-      "url": "mbtiles://{sat}",
+      "url": "mbtiles://{satellite}",
       "type": "raster"
+    },
+    "terrain": {
+      "tileSize": 256,
+      "url": "mbtiles://{terrain}",
+      "type": "raster-dem",
+      "encoding": "terrarium"
+    },
+    "hillshade": {
+      "tileSize": 256,
+      "url": "mbtiles://{terrain}",
+      "type": "raster-dem",
+      "encoding": "terrarium"
     }
   },
   "sprite": "{styleJsonFolder}/sprites/osm-liberty",
   "glyphs": "{fontstack}/{range}.pbf",
+  "terrain": {"source": "terrain", "exaggeration": 0.5},
   "layers": [
     {
       "id": "background",
@@ -36,6 +49,11 @@
       "source": "natural_earth_shaded_relief",
       "maxzoom": 6,
       "paint": {"raster-opacity": {"base": 1.5, "stops": [[0, 0.6], [6, 0.1]]}}
+    },
+    {
+      "id": "hillshading",
+      "source": "hillshade",
+      "type": "hillshade"
     },
     {
       "id": "satellite",
